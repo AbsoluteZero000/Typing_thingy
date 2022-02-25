@@ -1,7 +1,8 @@
 (async () => {
     const elements = {
         text_demo: document.getElementById('text-demo'),
-        text_area: document.getElementById('typing-place')
+        text_area: document.getElementById('typing-place'),
+        wpm_div: document.getElementById('wpm')
     };
     const QUOTES_URL = 'http://quotes.stormconsultancy.co.uk/random.json';
     let text;
@@ -27,7 +28,7 @@
                 const minutes_delta = milliseconds_delta / (1000 * 60);
                 const no_words = text.split(' ').length;
                 const wpm = no_words / minutes_delta;
-                console.log(wpm);
+                elements.wpm_div.innerHTML = wpm + ' WPM';
             }
         });
     };
