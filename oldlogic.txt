@@ -1,0 +1,86 @@
+let texter = document.getElementById("typing_place");
+let hr = 0;
+let min = 0;
+let sec = 0;
+let millisec = 0;
+let stoptimer = false;
+let printable = "";
+let test = 0;
+let myid;
+
+function printOnPage(text){
+  let elm = document.getElementById('wpm');
+  div = document.createElement('p');
+  div.innerHTML = text;
+  elm.appendChild(div);
+}
+
+
+
+function calculate(){
+  sec += millisec/1000+min*60+hr*(60*60);
+  console.log(millisec);
+  console.log(sec);
+  console.log(hr);
+  console.log(min);
+  return countWords(texter)/(sec/60);
+}
+
+function countWords(str){
+  str = str.replace(/(^\s*)|(\s*$)/gi,"");
+  str = str.replace(/[ ]{2,}/gi," ");
+  str = str.replace(/\n /,"\n");
+  return str.split(' ').length;
+}
+
+function start() {
+  
+  if(stoptimer == true){
+    clearInterval(myid);
+    return null;
+    }
+     
+
+      millisec = millisec + 1;
+
+      if(millisec==1000){
+        sec = sec + 1;
+        millisec=0
+      }
+      //sec+=1;
+      if (sec == 60) {
+        min = min + 1;
+        sec = 0;
+      }
+      if (min == 60) {
+        hr = hr + 1;
+        min = 0;
+        sec = 0;
+      }
+      console.log(millisec);
+      console.log(sec);
+      console.log(hr);
+      console.log(min);
+
+      myid = setInterval(start, 1);
+}
+
+
+function stop(){
+  stoptimer = true;
+
+}
+
+
+function Main(){
+  
+  //this is supposed to be called once the typing starts
+  document.getElementById("typing").style.display = "none";
+  stop();
+  printable = String(calculate());
+  hr = sec = min = millisec = 0;         
+  printable += " WPM";
+  printOnPage(printable);
+      
+}
+
