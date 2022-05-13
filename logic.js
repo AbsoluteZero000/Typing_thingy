@@ -4,13 +4,13 @@
         text_area: document.getElementById('typing-place'),
         wpm_div: document.getElementById('wpm')
     };
-    const QUOTES_URL = 'http://quotes.stormconsultancy.co.uk/random.json';
+    const QUOTES_URL = '/quotes.json';
     let text;
 
     const get_text = async () => {
         const data = await fetch(QUOTES_URL);
         const data_json = await data.json();
-        const quote = data_json.quote;
+        const quote = data_json[Math.floor(Math.random() * data_json.length)];
         return quote;
     };
 
